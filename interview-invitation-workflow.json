@@ -1,0 +1,130 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "readStatus": "unread"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "27e3734e-234f-43ae-80f7-8497ac14e000",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "clx0YiaoUZVxuR24",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "09297596-2995-40e2-bd28-a3d3edd205c7",
+              "leftValue": "={{ $json.Subject }}",
+              "rightValue": "Interview",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "9d8baa93-11d1-4cab-bf60-05c80d683943",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "draft",
+        "subject": "Re: Interview Invitation",
+        "message": "Dear Hiring Team,  Thank you for the interview invitation. I appreciate the opportunity and would be happy to attend the interview at the proposed time.  Looking forward to speaking with you.  Best regards, Syeda Mahnoor",
+        "options": {
+          "threadId": "={{ $json.threadId }}",
+          "sendTo": "={{ $json.From }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        -85
+      ],
+      "id": "902eed7c-2244-4637-babd-7a4623e83733",
+      "name": "Create a draft",
+      "webhookId": "945da287-7cc7-41ea-bb20-4812f87877bb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "clx0YiaoUZVxuR24",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Create a draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1c6ff300-17dc-44e6-9490-2f57aab34bf0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "30c7b244f5d63dbe2517412d112771116d00099cd6bdc11d68adc5b74041e029"
+  },
+  "nodeGroups": [],
+  "id": "Na4avtGaxPxBLWKT",
+  "tags": []
+}
