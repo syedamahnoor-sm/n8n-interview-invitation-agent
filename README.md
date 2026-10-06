@@ -33,4 +33,5 @@ Subject contains:
 
 
 ### Generated Draft
-![Generated Draft](screenshots/generated-draft.png)
+<img width="1316" height="260" alt="image" src="https://github.com/user-attachments/assets/f89d10d0-632c-4e74-a4ac-70847ce290a8" />
+
