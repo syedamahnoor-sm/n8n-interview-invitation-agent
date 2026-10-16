@@ -1,5 +1,5 @@
 {
-  "name": "My workflow 2",
+  "name": "Interview Invitation Draft Agent",
   "nodes": [
     {
       "parameters": {
@@ -66,7 +66,8 @@
       "parameters": {
         "resource": "draft",
         "subject": "Re: Interview Invitation",
-        "message": "Dear Hiring Team,  Thank you for the interview invitation. I appreciate the opportunity and would be happy to attend the interview at the proposed time.  Looking forward to speaking with you.  Best regards, Syeda Mahnoor",
+        "emailType": "html",
+        "message": "=<p>Dear Hiring Team,</p>\n\n<p>Thank you for the interview invitation.</p>\n\n<p>I appreciate the opportunity and would be happy to attend the interview at the proposed time.</p>\n\n<p>Looking forward to speaking with you.</p>\n\n<p>Best regards,<br>\nSyeda Mahnoor</p>",
         "options": {
           "threadId": "={{ $json.threadId }}",
           "sendTo": "={{ $json.From }}"
@@ -76,11 +77,32 @@
       "typeVersion": 2.2,
       "position": [
         448,
-        -85
+        -80
       ],
       "id": "902eed7c-2244-4637-babd-7a4623e83733",
       "name": "Create a draft",
       "webhookId": "945da287-7cc7-41ea-bb20-4812f87877bb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "clx0YiaoUZVxuR24",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        -80
+      ],
+      "id": "91f0f3ef-cf0c-488b-8883-f070af3090b5",
+      "name": "Mark a message as read",
+      "webhookId": "dcb54c3e-3b37-4168-8a7f-19a0a5bd5ab7",
       "credentials": {
         "gmailOAuth2": {
           "id": "clx0YiaoUZVxuR24",
@@ -112,6 +134,17 @@
           }
         ]
       ]
+    },
+    "Create a draft": {
+      "main": [
+        [
+          {
+            "node": "Mark a message as read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -119,7 +152,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "1c6ff300-17dc-44e6-9490-2f57aab34bf0",
+  "versionId": "ffa6a0ba-ac6e-4545-958c-708828622893",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "30c7b244f5d63dbe2517412d112771116d00099cd6bdc11d68adc5b74041e029"
